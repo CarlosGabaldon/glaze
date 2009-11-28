@@ -4,9 +4,23 @@ import data
 
 
 class Content(object):
+    """
+    A piece of content.
+
+    """
+    def __init__(self):
+        """
+        Initialize a newly instanced Content.
+
+        `permalink`
+            is unique link to the object
+
+        """
+        # need logic to create permalink
+        self.permalink = None
     
     @classmethod
-    def find_by_permalink(cls, permalink):
+    def get(cls, permalink):
         sql = "select * from content where permalink='%s'" % permalink
         results = data.execute_sql(sql=sql)
         content = Content()
