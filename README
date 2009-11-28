@@ -1,2 +1,14 @@
 Glaze is a content driven discussion platform where the discussion is annotated (glazed) on the content.
 
+Dependencies:
+
+# Python 2.6 +
+# MySQLdb
+# sudo easy_install webpy
+# cd ./glaze/data
+# mysql -u root < schema.sql
+
+
+Run
+# cd {~/code/glaze/glaze}$ python handlers.py
+# open http://0.0.0.0:8080/2004-06-30-World-Class-Supply-Management

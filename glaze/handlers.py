@@ -34,31 +34,24 @@
 
 
 import json
+import web
 import MySQLdb
 import models
 import data
 
-class Handler(object):
-    """
-    A Handler is the main request handler used to serve up the content with the discussions
-    annotated on that content.
-    
 
-    Examples::
+urls = (
+    '/(.*)', 'content'
+)
+app = web.application(urls, globals())
 
+
+class content(object):
         
-    """
-    
-    # CONTENT #1
-    # permalink = <date>-<title>
-    # 2004-06-30-World-Class-Supply-Management
-    def new_content(self, title, path_to_content):
+    def INDEX(self, filters):
         pass
         
-    def list_content(self, filters):
-        pass
-        
-    def get_content(self, permalink):
+    def GET(self, permalink):
         
         sql = "select * from content where permalink='%s'" % permalink
         results = data.execute_sql(sql=sql)
@@ -67,43 +60,56 @@ class Handler(object):
               content["id"] = row[0]
               content["permalink"] = row[1]
               content["created "] = row[2].strftime('%Y/%m/%d')
-        
+    
         return json.dumps(obj=content, sort_keys=True, indent=4)
     
-    def delete_content(self, permalink):
+    def POST(self, title, path_to_content):
         pass
         
-    # DISCUSSION #2
-    # permalink = <content-permalink>-<date>-<title>
-    # 2004-06-30-World-Class-Supply-Management-2009-11-22-Transformation-in-Relationships
-    def new_discussion(self, content, title, coordinates):
+    def DELETE(self, permalink):
+        pass
+
+class discussion(object):
+
+    def INDEX(self, filters):
+        pass
+        
+    def GET(self, permalink):
         pass
     
-    def list_discussions(self, filters):
+    def POST(self, title, path_to_content):
         pass
     
-    def get_discussion(self, permalink):
+    def PUT(self, permalink):
         pass
         
-    def delete_discussion(self, permalink):
+    def DELETE(self, permalink):
         pass
         
-    # POST #3 
-    # permalink <content-permalink>-<discussion-permalink>-<date>-<title>
-    # 2004-06-30-World-Class-Supply-Management-2009-11-22-Transformation-in-Relationships-2009-11-30-Not-Sure-About-This
-    def new_post(self, discussion, title):
+class post(object):
+ 
+    def INDEX(self, filters):
+        pass
+        
+    def GET(self, permalink):
         pass
     
-    def list_posts(self, filters):
+    def POST(self, title, path_to_content):
+        pass
+    
+    def PUT(self, permalink):
         pass
         
-    def get_post(self, permalink):
+    def DELETE(self, permalink):
         pass
-        
-    def delete_post(self, permalink):
-        pass
+
         
         
-        
+if __name__ == "__main__":
+    app.run()
+
+
+
+
         
         
