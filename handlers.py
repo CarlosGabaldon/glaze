@@ -36,12 +36,11 @@
 import json
 import web
 import MySQLdb
-import models
 import data
 
 
 urls = (
-    '/(.*)', 'content'
+    '/content/(.*)', 'content'
 )
 app = web.application(urls, globals())
 

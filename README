@@ -11,4 +11,4 @@ Dependencies:
 
 Run
 # cd {~/code/glaze/glaze}$ python handlers.py
-# open http://0.0.0.0:8080/2004-06-30-World-Class-Supply-Management
+# open http://0.0.0.0:8080/content/2004-06-30-World-Class-Supply-Management
