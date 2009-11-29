@@ -55,16 +55,35 @@ class content(object):
         sql = "select * from content where permalink='%s'" % permalink
         results = data.execute_sql(sql=sql)
         content = {}
-        for row in results:
-              content["id"] = row[0]
-              content["permalink"] = row[1]
-              content["created "] = row[2].strftime('%Y/%m/%d')
-    
+        for col in results:
+              content["id"] = col[0]
+              content["title"] = col[1]
+              content["permalink"] = col[2]
+              content["created"] = col[3].strftime('%Y/%m/%d')
+        
+        sql = "select * from discussion where content_id ='%s'" % content["id"]
+        
+        results = data.execute_sql(sql=sql)
+        discussions = []
+        for col in results:
+            discussion = {}
+            discussion["id"] = col[0]
+            discussion["content_id"] = col[1]
+            discussion["title"] = col[2]
+            discussion["coordinates"] = col[3]
+            discussion["created"] = col[4].strftime('%Y/%m/%d')
+            discussions.append(discussion)
+            
+        content["discussions"] = discussions
+        
         return json.dumps(obj=content, sort_keys=True, indent=4)
     
     def POST(self, title, path_to_content):
         pass
         
+    def PUT(self, permalink):
+        pass
+    
     def DELETE(self, permalink):
         pass
 

@@ -8,6 +8,7 @@ use glaze;
 
 CREATE TABLE content (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(200),
   permalink VARCHAR(1000),
   created TIMESTAMP DEFAULT NOW()
 );
@@ -31,13 +32,17 @@ CREATE TABLE post (
 
 
 # A specific piece of content.
-INSERT INTO content (permalink)
-VALUES ("2004-06-30-World-Class-Supply-Management");
+INSERT INTO content (title, permalink)
+VALUES ("World Class Supply Management", "2004-06-30-World-Class-Supply-Management");
  
 # A discussion topic located within the content at a fixed set of
 # coordinates. <page>.<word count>, i.e. page 1, 123rd word on page.
 INSERT INTO discussion (content_id, topic, coordinates)
 VALUES ((SELECT id from content where permalink = '2004-06-30-World-Class-Supply-Management'),"Transformation in Relationships", "01.123"); 
+
+INSERT INTO discussion (content_id, topic, coordinates)
+VALUES ((SELECT id from content where permalink = '2004-06-30-World-Class-Supply-Management'),"Transactional Relationships", "02.143"); 
+
 
 # A post within a discussion.
 INSERT INTO post (discussion_id, posted_by_user_id, reply_to_post_id, text)
