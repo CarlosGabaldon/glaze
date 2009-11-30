@@ -72,8 +72,20 @@ class content(object):
             discussion["title"] = col[2]
             discussion["coordinates"] = col[3]
             discussion["created"] = col[4].strftime('%Y/%m/%d')
+            sql_posts = "select * from post where discussion_id ='%s'" % discussion["id"]
+            posts_results = data.execute_sql(sql_posts)
+            posts = []
+            for post_col in posts_results:
+                post = {}
+                post["id"] = post_col[0]
+                post["discussion_id"] = post_col[1]
+                post["posted_by_user_id"] = post_col[2]
+                post["reply_to_post_id"] = post_col[3]
+                post["text"] = post_col[4]
+                post["created"] = post_col[5].strftime('%Y/%m/%d')
+                posts.append(post)
+            discussion["posts"] = posts
             discussions.append(discussion)
-            
         content["discussions"] = discussions
         
         return json.dumps(obj=content, sort_keys=True, indent=4)

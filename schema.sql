@@ -49,5 +49,7 @@ INSERT INTO post (discussion_id, posted_by_user_id, reply_to_post_id, text)
 VALUES ((SELECT id from discussion where topic = 'Transformation in Relationships'), "1", NULL, 
 "I am not sure I understand the point about strategic alliance, what does that mean?"); 
 
-
+INSERT INTO post (discussion_id, posted_by_user_id, reply_to_post_id, text)
+VALUES ((SELECT id from discussion where topic = 'Transformation in Relationships'), "2", "1", 
+"I think what they are saying is that some relationships in the supply managment chain can change the model.");
 
