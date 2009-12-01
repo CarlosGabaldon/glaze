@@ -38,14 +38,21 @@
                     dataType: "json",
                     success: function(content){
                         
-                         $('#contentViewer').val("Content id: " + content.id + "\r\n" +
+                        //for testing to view object values.
+                         $('#objectViewer').val("Content id: " + content.id + "\r\n" +
                                                  "Content permalink: " + content.permalink + "\r\n" +
                                                  "Content title: " + content.title + "\r\n" +
                                                  "Number of Discussion: " + content.discussions.length + "\r\n" +
                                                  "First discussion coordinates: " + content.discussions[0].coordinates
                                                  );
+                                                 
+                         //load the content
+                         $.get("/static/content/" + content.permalink + ".html", function(data){
+                           $('#contentViewer').attr("innerHTML", data);
+                         });
                          
-
+                         //annotate the discussion icons on the margin by iterating the discussion.coordinates
+                         
                     }
                   });
 
