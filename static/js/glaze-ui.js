@@ -39,7 +39,8 @@
                     success: function(content){
                         
                          $('#contentViewer').val("Content id: " + content.id + "\r\n" +
-                                                 "Title: " + content.title + "\r\n" +
+                                                 "Content permalink: " + content.permalink + "\r\n" +
+                                                 "Content title: " + content.title + "\r\n" +
                                                  "Number of Discussion: " + content.discussions.length + "\r\n" +
                                                  "First discussion coordinates: " + content.discussions[0].coordinates
                                                  );
