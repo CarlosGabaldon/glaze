@@ -5,6 +5,12 @@ $def with (name)
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>Glaze Content Viewer</title>
+	
+	<!-- Generic Libraries -->
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+
+  <!-- Application Code -->
+  <script type="text/javascript" src="/static/js/glaze-ui.js"></script>
 
 </head>
 <body>
@@ -13,6 +19,10 @@ $def with (name)
       Welcome to <em>Glaze</em> $name.
   $else:
       <em>Hello</em>, world!
+      
+  <a class="load-content" href="/content/2004-06-30-World-Class-Supply-Management">Load Content</a>
+  <br/>
+  <textarea rows="10" cols="100" id="contentViewer"> </textarea>
 
 </body>
 </html>

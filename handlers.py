@@ -46,12 +46,12 @@ urls = (
 )
 app = web.application(urls, globals())
 
+
 class index(object):
     
     def GET(self):
         name = 'Carlos'    
         return render.index(name)
-        
 
 class content(object):
         
@@ -98,12 +98,6 @@ class content(object):
     def POST(self, title, path_to_content):
         pass
         
-    def PUT(self, permalink):
-        pass
-    
-    def DELETE(self, permalink):
-        pass
-
 class discussion(object):
 
     def GET(self, permalink):
@@ -112,12 +106,7 @@ class discussion(object):
     def POST(self, title, path_to_content):
         pass
     
-    def PUT(self, permalink):
-        pass
-        
-    def DELETE(self, permalink):
-        pass
-        
+
 class post(object):
         
     def GET(self, permalink):
@@ -126,12 +115,6 @@ class post(object):
     def POST(self, title, path_to_content):
         pass
     
-    def PUT(self, permalink):
-        pass
-        
-    def DELETE(self, permalink):
-        pass
-
         
         
 if __name__ == "__main__":
