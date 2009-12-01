@@ -38,17 +38,22 @@ import web
 import MySQLdb
 import data
 
+render = web.template.render('templates/')
 
 urls = (
+    '/index/', 'index',
     '/content/(.*)', 'content'
 )
 app = web.application(urls, globals())
 
+class index(object):
+    
+    def GET(self):
+        name = 'Carlos'    
+        return render.index(name)
+        
 
 class content(object):
-        
-    def INDEX(self, filters):
-        pass
         
     def GET(self, permalink):
         
@@ -101,9 +106,6 @@ class content(object):
 
 class discussion(object):
 
-    def INDEX(self, filters):
-        pass
-        
     def GET(self, permalink):
         pass
     
@@ -117,9 +119,6 @@ class discussion(object):
         pass
         
 class post(object):
- 
-    def INDEX(self, filters):
-        pass
         
     def GET(self, permalink):
         pass
