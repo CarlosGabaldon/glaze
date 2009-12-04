@@ -42,7 +42,8 @@ render = web.template.render('templates/')
 
 urls = (
     '/index/', 'index',
-    '/content/(.*)', 'content'
+    '/content/(.*)', 'content',
+    '/discussion/(.*)', 'discussion'
 )
 app = web.application(urls, globals())
 
@@ -57,6 +58,7 @@ class content(object):
         
     def GET(self, permalink):
         
+        # to-do santize input..
         sql = "select * from content where permalink='%s'" % permalink
         results = data.execute_sql(sql=sql)
         content = {}
@@ -65,6 +67,7 @@ class content(object):
               content["title"] = col[1]
               content["permalink"] = col[2]
               content["created"] = col[3].strftime('%Y/%m/%d')
+        
         
         sql = "select * from discussion where content_id ='%s'" % content["id"]
         
@@ -100,10 +103,21 @@ class content(object):
         
 class discussion(object):
 
-    def GET(self, permalink):
-        pass
-    
-    def POST(self, title, path_to_content):
+    def GET(self, discussion_id):
+        
+        sql = "select * from discussion where id='%s'" % discussion_id
+        results = data.execute_sql(sql=sql)
+        discussion = {}
+        for col in results:
+            discussion["id"] = col[0]
+            discussion["content_id"] = col[1]
+            discussion["title"] = col[2]
+            discussion["coordinates"] = col[3]
+            discussion["created"] = col[4].strftime('%Y/%m/%d')
+
+        return json.dumps(obj=discussion, sort_keys=True, indent=4)
+            
+    def POST(self, title):
         pass
     
 
@@ -112,7 +126,7 @@ class post(object):
     def GET(self, permalink):
         pass
     
-    def POST(self, title, path_to_content):
+    def POST(self, title):
         pass
     
         

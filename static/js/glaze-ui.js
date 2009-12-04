@@ -25,12 +25,11 @@
         
         init: function(){
             
-           $("a.load-content").click(this.loadContent);
-           
+           $("a.load-content").click(this.getContent);
       
         },
         
-        loadContent: function(){
+        getContent: function(){
                var link = $(this)
                $.ajax({
                     type: "GET",
@@ -46,12 +45,29 @@
                                                  "First discussion coordinates: " + content.discussions[0].coordinates
                                                  );
                                                  
+                         for ( i = 0; i < content.discussions.length; i++ ){
+                             a = document.createElement("a");
+                             a.setAttribute('href','/discussion/' + content.discussions[i].id);
+                             a.setAttribute('class','discussion-topic');
+                             t = document.createTextNode('Show Discussion');
+                             a.appendChild(t);
+                             br = document.createElement("br");
+                             $("#margin").append(a);
+                             $("#margin").append(br);
+                         }
+                         
+                         $("a.discussion-topic").click(glaze.ui.getDiscussion);
+                                                 
                          //load the content
                          $.get("/static/content/" + content.permalink + ".html", function(data){
                            $('#contentViewer').attr("innerHTML", data);
                          });
                          
-                         //annotate the discussion icons on the margin by iterating the discussion.coordinates
+                         //1. annotate the discussion icons on the margin by iterating the discussion.coordinates
+                         //2. create <a> tags with permalink of disucssion
+                         //3. register event handlers of <a> tags
+                         //4. this will be used later to ajax request the disucssion by permalink
+                         
                          
                     }
                   });
@@ -59,30 +75,28 @@
               return false;
           },
         
-        checkCharCount: function(){
+        getDiscussion: function(){
+            // Get the permalink to the discussion
+            //<a class="discussion-topic" href="/discussion/2">Show Discussion</a>
+            $.ajax({
+                    type: "GET",
+                    url: $(this).attr("href"),
+                    dataType: "json",
+                    success: function(discussion){
+                                                 
+                         //popup window with discussion
+                         alert(discussion.title);
+                   
+                    }
+                  });
             
-            gabaluu.synopsis.charCounter($('#id_title'), 50, $('#titleCounter'));
-            gabaluu.synopsis.charCounter($('#id_text'), 1000, $('#bodytextCounter'));
+            return false;
         },
         
-        charCounter: function(field, maxLength, countTarget){
-            var inputLength=field.val().length;
-            countTarget.html(maxLength-field.val().length);
-            
-            if(inputLength>=maxLength){
-                countTarget.html("0")
-            }
+        newDiscussion: function(){
             
         },
-        
-        charLimit: function(field, maxLength){
-            var inputLength=field.val().length;
-            if(inputLength>=maxLength){
-                field.val(field.val().substring(0, maxLength));
-            }
-        },
-        
-          
+           
         addComment: function(){
             
             var comment = $(this).find("textarea.comment").val(); 
