@@ -1,0 +1,8 @@
+#discussion-popup {
+    position: absolute;
+    display: none;
+    background-color: #fff;
+    z-index: 50;
+    border: solid;
+    border-collapse: collapse;
+}
