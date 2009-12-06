@@ -1,0 +1,57 @@
+$def with (contents)
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Glaze Content Viewer</title>
+	
+	<!-- Generic Libraries -->
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+  
+  <!-- Layout -->
+  <link rel="stylesheet" type="text/css" href="/static/css/grids.css">
+  
+  <!-- style -->
+  <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+
+</head>
+<body>
+  <div id="doc3" class="yui-t4">
+  	<div id="hd">
+  		<!-- PUT MASTHEAD CODE HERE -->
+  	</div>
+  	<div id="bd">
+  		<div id="yui-main">
+  			<div class="yui-b">
+  				<div class="yui-gc">
+  					<div class="yui-u first">
+  						<!-- PUT MAIN COLUMN 1 CODE HERE -->
+  						<h3>Content List</h3>
+  						<ol>
+  						$for content in contents:
+  						  <li><a class="load-content" href="/content/$content['permalink']">$content['title']</a></li>
+              </ol>
+  					</div>
+  					<div class="yui-u">
+  						<!-- PUT MAIN COLUMN 2 CODE HERE -->
+  						<span id="margin"></span>
+        			<span id="discussion-popup"></span>
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+  		<div class="yui-b">
+  			<!-- PUT SECONDARY COLUMN CODE HERE -->
+
+  		</div>
+  	</div>
+  	<div id="ft">
+  		<!-- PUT FOOTER CODE HERE -->
+  		
+  	</div>
+  </div>
+</body>
+</html>
+
+

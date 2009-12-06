@@ -41,19 +41,29 @@ import data
 render = web.template.render('templates/')
 
 urls = (
-    '/index/', 'index',
+    '/index/', 'content_list',
     '/content/(.*)', 'content',
+    '/discussions/(.*)', 'discussion_list',
     '/discussion/(.*)', 'discussion'
 )
 app = web.application(urls, globals())
 
 
-class index(object):
+class content_list(object):
     
     def GET(self):
-        name = 'Carlos'    
-        return render.index(name)
-
+        sql = "select permalink, title from content"
+        content_results = data.execute_sql(sql=sql)
+        contents = []
+        for col in content_results:
+            content = {}
+            content["permalink"] = col[0]
+            content["title"] = col[1]
+            contents.append(content)
+             
+        return render.content_list(contents)
+        
+        
 class content(object):
         
     def GET(self, permalink):
@@ -66,41 +76,28 @@ class content(object):
               content["id"] = col[0]
               content["title"] = col[1]
               content["permalink"] = col[2]
-              content["created"] = col[3].strftime('%Y/%m/%d')
+              content["body"] = col[3]
+              content["created"] = col[4].strftime('%Y/%m/%d')
         
-        
-        sql = "select * from discussion where content_id ='%s'" % content["id"]
-        
-        results = data.execute_sql(sql=sql)
-        discussions = []
-        for col in results:
-            discussion = {}
-            discussion["id"] = col[0]
-            discussion["content_id"] = col[1]
-            discussion["title"] = col[2]
-            discussion["coordinates"] = col[3]
-            discussion["created"] = col[4].strftime('%Y/%m/%d')
-            sql_posts = "select * from post where discussion_id ='%s'" % discussion["id"]
-            posts_results = data.execute_sql(sql_posts)
-            posts = []
-            for post_col in posts_results:
-                post = {}
-                post["id"] = post_col[0]
-                post["discussion_id"] = post_col[1]
-                post["posted_by_user_id"] = post_col[2]
-                post["reply_to_post_id"] = post_col[3]
-                post["text"] = post_col[4]
-                post["created"] = post_col[5].strftime('%Y/%m/%d')
-                posts.append(post)
-            discussion["posts"] = posts
-            discussions.append(discussion)
-        content["discussions"] = discussions
-        
-        return json.dumps(obj=content, sort_keys=True, indent=4)
+        return render.content_view(content)
     
     def POST(self, title, path_to_content):
         pass
-        
+
+
+class discussion_list(object):
+
+    def GET(self, content_id):
+        sql = "select id, coordinates from discussion where content_id='%s'" % content_id
+        discussion_results = data.execute_sql(sql=sql)
+        discussions = []
+        for col in discussion_results:
+            discussion = {}
+            discussion["id"] = col[0]
+            discussions.append(discussion)
+             
+        return json.dumps(obj=discussions, sort_keys=True, indent=4)
+
 class discussion(object):
 
     def GET(self, discussion_id):
