@@ -99,6 +99,15 @@ class discussion_list(object):
             discussion = {}
             discussion["id"] = col[0]
             discussion["coordinates"] = col[1]
+            
+            sql_posts = "select id from post where discussion_id ='%s'" % discussion["id"]
+            posts_results = data.execute_sql(sql_posts)
+            posts = []
+            for post_col in posts_results:
+                post = {}
+                post["id"] = post_col[0]
+                posts.append(post)
+            discussion["posts"] = posts
             discussions.append(discussion)
              
         return json.dumps(obj=discussions, sort_keys=True, indent=4)

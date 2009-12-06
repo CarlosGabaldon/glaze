@@ -39,7 +39,7 @@
                          for ( i = 0; i < discussions.length; i++ ){
                              
                              discussionLink = "<a href='/discussion/" + discussions[i].id + "'" + 
-                                                " class='discussion-topic'>Discussion</a> " + 
+                                                " class='discussion-topic'>Discussion(" + discussions[i].posts.length  + ")</a> " + 
                                               "<div class='discussion-popup'" + 
                                                    " id='discussionPopup-" + discussions[i].id + "'>s</div>"
                              
@@ -57,6 +57,7 @@
         
   
         getDiscussion: function(){
+            //need to not make ajax call if discussion popup is visible...
             $.ajax({
                     type: "GET",
                     url: $(this).attr("href"),

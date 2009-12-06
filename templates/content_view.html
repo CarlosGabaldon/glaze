@@ -33,6 +33,8 @@ $def with (content, markdown)
   						<div id="content">
   						  <a id="contentId" href='$content["id"]'></a>
   						  <!--markdown(content['body'])-->
+  						  <h2>$content['title']</h2>
+  						  <h4>Uploaded on $content['created']</h4>
   						  $:content['body']
   						</div>
   					</div>
