@@ -39,7 +39,9 @@
                          for ( i = 0; i < discussions.length; i++ ){
                              
                              discussionLink = "<a href='/discussion/" + discussions[i].id + "'" + 
-                                                " class='discussion-topic'>Discussion</a>"
+                                                " class='discussion-topic'>Discussion</a> " + 
+                                              "<div class='discussion-popup'" + 
+                                                   " id='discussionPopup-" + discussions[i].id + "'>s</div>"
                              
                              $("#" + discussions[i].coordinates).append(discussionLink);
                          }
@@ -53,44 +55,7 @@
             
         },
         
-        getContent: function(){
-               $.ajax({
-                    type: "GET",
-                    url: $(this).attr("href"),
-                    dataType: "json",
-                    success: function(content){
-                 
-                         //load the content
-                         /* $.get("/static/content/" + content.permalink + ".html", function(data){
-                            $('#contentViewer').attr("innerHTML", data);
-                          });
-                         */                     
-                         for ( i = 0; i < content.discussions.length; i++ ){
-                             a = document.createElement("a");
-                             a.setAttribute('href','/discussion/' + content.discussions[i].id);
-                             a.setAttribute('class','discussion-topic');
-                             t = document.createTextNode('Show Discussion');
-                             a.appendChild(t);
-                            /* $("#margin") */
-                             id = "#" + content.discussions[i].coordinates;
-                             $(id).append(a);
-                         }
-                         
-                         $("a.discussion-topic").click(glaze.ui.getDiscussion);
-                         
-                         
-                         //1. annotate the discussion icons on the margin by iterating the discussion.coordinates
-                         //2. create <a> tags with permalink of disucssion
-                         //3. register event handlers of <a> tags
-                         //4. this will be used later to ajax request the disucssion by permalink
-                         
-                         
-                    }
-                  });
-
-              return false;
-          },
-        
+  
         getDiscussion: function(){
             $.ajax({
                     type: "GET",
@@ -119,21 +84,21 @@
             }
             post_html = post_html + "</ol>";
             
-            html = "<a href='#' id='closeDiscussion'>Close</a><br/>" + 
+            html = "<a id='closeDiscussion'>Close</a><br/>" + 
                    "<h4>Topic: " + discussion.title + "</h4>" +
                    post_html +
                    "<form  action='' method='post'>" +
-                        "<textarea id='post' name='post' cols='70' rows='10' class='comment'></textarea>" +
+                        "<textarea id='post' name='post' cols='60' rows='10' class='comment'></textarea>" +
                         "<br/><br/>" +
                        "<input type='submit' value='Post'  />" +
                    "</form>";
             
-            $('#discussion-popup')
+            $('#discussionPopup-' + discussion.id)
                 .toggle()
                     .attr("innerHTML", html);
              
              $('#closeDiscussion').click( function(){
-                 $('#discussion-popup').hide();
+                 $('#discussionPopup-' + discussion.id).toggle();
 
              });
              

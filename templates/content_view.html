@@ -1,4 +1,4 @@
-$def with (content)
+$def with (content, markdown)
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
    "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
@@ -32,13 +32,12 @@ $def with (content)
   						<!-- PUT MAIN COLUMN 1 CODE HERE -->
   						<div id="content">
   						  <a id="contentId" href='$content["id"]'></a>
-  						  $content['body']
+  						  <!--markdown(content['body'])-->
+  						  $:content['body']
   						</div>
   					</div>
   					<div class="yui-u">
   						<!-- PUT MAIN COLUMN 2 CODE HERE -->
-  						<span id="margin"></span>
-        			<span id="discussion-popup"></span>
   					</div>
   				</div>
   			</div>

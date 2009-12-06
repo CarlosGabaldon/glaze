@@ -37,6 +37,10 @@ import json
 import web
 import MySQLdb
 import data
+import markdown
+
+#globals = {'markdown': markdown.markdown}
+#render = web.template.render('templates', globals=globals)
 
 render = web.template.render('templates/')
 
@@ -47,7 +51,7 @@ urls = (
     '/discussion/(.*)', 'discussion'
 )
 app = web.application(urls, globals())
-
+#app = web.application(urls)
 
 class content_list(object):
     
@@ -76,10 +80,10 @@ class content(object):
               content["id"] = col[0]
               content["title"] = col[1]
               content["permalink"] = col[2]
-              content["body"] = col[3]
+              content["body"] = unicode(col[3], 'utf-8')
               content["created"] = col[4].strftime('%Y/%m/%d')
         
-        return render.content_view(content)
+        return render.content_view(content, markdown.markdown)
     
     def POST(self, title, path_to_content):
         pass
@@ -94,6 +98,7 @@ class discussion_list(object):
         for col in discussion_results:
             discussion = {}
             discussion["id"] = col[0]
+            discussion["coordinates"] = col[1]
             discussions.append(discussion)
              
         return json.dumps(obj=discussions, sort_keys=True, indent=4)
