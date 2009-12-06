@@ -15,28 +15,50 @@ $def with (name)
   <!-- Application Code -->
   <script type="text/javascript" src="/static/js/glaze-ui.js"></script>
   
+  <!-- Layout -->
+  <link rel="stylesheet" type="text/css" href="/static/css/grids.css">
+  
   <!-- style -->
   <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 
 </head>
 <body>
+  <div id="doc3" class="yui-t4">
+  	<div id="hd">
+  		<!-- PUT MASTHEAD CODE HERE -->
+  	  $if name:
+          Welcome to <em>Glaze</em> $name.
+      $else:
+          <em>Hello</em>, Guest
+  	</div>
+  	<div id="bd">
+  		<div id="yui-main">
+  			<div class="yui-b">
+  				<div class="yui-gc">
+  					<div class="yui-u first">
+  						<!-- PUT MAIN COLUMN 1 CODE HERE -->
+  						<a class="load-content" href="/content/2004-06-30-World-Class-Supply-Management">Load Content</a>
+  						<span id="contentViewer"/>
+  						<!--<textarea rows="5" cols="100" id="objectViewer"> </textarea>-->
+  					</div>
+  					<div class="yui-u">
+  						<!-- PUT MAIN COLUMN 2 CODE HERE -->
+  						<span id="margin"></span>
+        			<span id="discussion-popup"></span>
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+  		<div class="yui-b">
+  			<!-- PUT SECONDARY COLUMN CODE HERE -->
 
-  $if name:
-      Welcome to <em>Glaze</em> $name.
-  $else:
-      <em>Hello</em>, world!
-      
-  <a class="load-content" href="/content/2004-06-30-World-Class-Supply-Management">Load Content</a>
-  <br/>
-  <!--<textarea rows="5" cols="100" id="objectViewer"> </textarea>-->
-  
-  <div id="margin"></div>
-  
-  <div id="discussion-popup">
+  		</div>
+  	</div>
+  	<div id="ft">
+  		<!-- PUT FOOTER CODE HERE -->
+  		
+  	</div>
   </div>
-  
-  <div style="width: 90%" id="contentViewer"/>
-
 </body>
 </html>
 

@@ -30,10 +30,9 @@
         },
         
         getContent: function(){
-               var link = $(this)
                $.ajax({
                     type: "GET",
-                    url: link.attr("href"),
+                    url: $(this).attr("href"),
                     dataType: "json",
                     success: function(content){
                         /*
@@ -60,7 +59,6 @@
                          
                          $("a.discussion-topic").click(glaze.ui.getDiscussion);
                          
-                                         
                          //load the content
                          $.get("/static/content/" + content.permalink + ".html", function(data){
                            $('#contentViewer').attr("innerHTML", data);
@@ -79,8 +77,6 @@
           },
         
         getDiscussion: function(){
-            // Get the permalink to the discussion
-            //<a class="discussion-topic" href="/discussion/2">Show Discussion</a>
             $.ajax({
                     type: "GET",
                     url: $(this).attr("href"),
@@ -98,10 +94,24 @@
         },
            
         loadDiscussionWindow: function(discussion){
-            //use microformats..
+            
+            //build posts list..
+            post_html = "<ol>";
+            for ( i = 0; i < discussion.posts.length; i++ ){
+                post_html = post_html + 
+                    "<li><span id='" + discussion.posts[i].id + "'>" + 
+                    discussion.posts[i].text +"</span></li>"
+            }
+            post_html = post_html + "</ol>";
+            
             html = "<a href='#' id='closeDiscussion'>Close</a><br/>" + 
-                   "<h3>Topic: " + discussion.title + "</h3>" +
-                   "<textarea cols='60' rows='10'></textarea>";
+                   "<h4>Topic: " + discussion.title + "</h4>" +
+                   post_html +
+                   "<form  action='' method='post'>" +
+                        "<textarea id='post' name='post' cols='70' rows='10' class='comment'></textarea>" +
+                        "<br/><br/>" +
+                       "<input type='submit' value='Post'  />" +
+                   "</form>";
             
             $('#discussion-popup')
                 .toggle()
