@@ -90,6 +90,11 @@ class content(object):
 
 
 class discussion_list(object):
+	""""
+	Returns JSON list of discussions by content_id
+	http://0.0.0.0:8080/discussions/1
+	
+	"""
 
     def GET(self, content_id):
         sql = "select id, coordinates from discussion where content_id='%s'" % content_id
@@ -113,7 +118,10 @@ class discussion_list(object):
         return json.dumps(obj=discussions, sort_keys=True, indent=4)
 
 class discussion(object):
-
+	"""
+	Returns JSON discussion by discussion id
+	http://0.0.0.0:8080/discussion/2
+	"""
     def GET(self, discussion_id):
         
         sql = "select * from discussion where id='%s'" % discussion_id
