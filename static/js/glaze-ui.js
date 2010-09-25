@@ -28,7 +28,7 @@
            glaze.ui.getDiscussionList($("#contentId").attr("href"))
       
         },
-        
+        //"http://disqus.com/api/get_forum_posts?user_api_key=wwVWtbICyVGySXjlektHye8R0wIHkMoCgdRSVFOdpMeVTkTbH2k8bMQidoAfuXjX&forum_id=479516&api_version=1.1" 
         getDiscussionList: function(contentId){
             $.ajax({
                     type: "GET",

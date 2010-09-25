@@ -100,7 +100,7 @@ INSERT INTO discussion (content_id, topic, coordinates)
 VALUES ((SELECT id from content where permalink = '2004-06-30-World-Class-Supply-Management'),"On Demand Operations", "01322"); 
 
 
-# A post within a discussion.
+# A thread within a discussion.
 INSERT INTO post (discussion_id, posted_by_user_id, reply_to_post_id, text)
 VALUES ((SELECT id from discussion where topic = 'Transformation in Relationships'), "1", NULL, 
 "I am not sure I understand the point about strategic alliance, what does that mean?"); 
